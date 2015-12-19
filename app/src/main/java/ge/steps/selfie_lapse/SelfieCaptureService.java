@@ -60,7 +60,7 @@ public class SelfieCaptureService extends Service {
                                                        int height) {
                                 Log.d(TAG, "holder initiated " + holder);
                                 cameraController.getCameraInstance(holder, width, height);
-                                new CountDownTimer(5000, 1000) {
+                                new CountDownTimer(3000, 1000) {
 
                                     @Override
                                     public void onTick(long millisUntilFinished) {
@@ -69,10 +69,10 @@ public class SelfieCaptureService extends Service {
 
                                     @Override
                                     public void onFinish() {
-                                        cameraController.takePicture(new Camera.PictureCallback() {
+                                        cameraController.takePicture(new CameraController.GetURI() {
                                             @Override
-                                            public void onPictureTaken(byte[] data, Camera camera) {
-                                                // TODO save image here. and call database with saved URI
+                                            public void onPhotoSaved(String uri) {
+                                                Log.d(TAG, "path :  " + uri);
                                                 stopSelf();
                                             }
                                         });
