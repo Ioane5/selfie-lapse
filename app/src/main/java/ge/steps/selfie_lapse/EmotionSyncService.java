@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.List;
+
 public class EmotionSyncService extends IntentService {
 
     public static final String TAG = EmotionSyncService.class.getSimpleName();
@@ -24,9 +26,11 @@ public class EmotionSyncService extends IntentService {
             // TODO get list of emotion pass and sync them. :)
             // use emotion helper class.
             // this method is in background.
-            FileStorage storage = FileStorage.getSelfieStore(getApplicationContext());
+            StorageAPI storage = FileStorage.getSelfieStore(getApplicationContext());
             // don't use quota untill it's finished!
-            //EmotionHelper.syncEmotion(storage.getAllSelfies());
+            List<Selfie> selfies = storage.getAllSelfies();
+            EmotionHelper.syncEmotion(selfies);
+            storage.saveAll(selfies);
         }
     }
 

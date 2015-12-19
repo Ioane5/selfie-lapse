@@ -6,10 +6,11 @@ import java.util.List;
 
 public interface StorageAPI {
     Selfie createSelfie();
-    void saveSelfie(Selfie selfie) throws IOException, ClassNotFoundException;
-    void deleteSelfie(String path) throws IOException, ClassNotFoundException;
-    void updateSelfie(Selfie selfie) throws IOException, ClassNotFoundException;
+    void saveSelfie(Selfie selfie);
+    void deleteSelfie(String path);
+    void updateSelfie(Selfie selfie);
 
-    List<Selfie> getAllSelfies() throws IOException, ClassNotFoundException;
+    List<Selfie> getAllSelfies();
 
+    void saveAll(List<Selfie> selfies);
 }
