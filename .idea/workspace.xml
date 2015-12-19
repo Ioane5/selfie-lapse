@@ -54,18 +54,44 @@
       <file leaf-file-name="SelfieCaptureService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/SelfieCaptureService.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0">
               <caret line="71" column="99" selection-start-line="71" selection-start-column="99" selection-end-line="71" selection-end-column="99" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3175#3176#0" expanded="true" />
+=======
+            <state vertical-scroll-proportion="0.22123894">
+              <caret line="74" column="61" selection-start-line="74" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2737#3131#0" expanded="true" />
+                <element signature="e#3130#3131#0" expanded="true" />
+                <element signature="e#5082#5252#0" expanded="true" />
+                <element signature="e#5251#5252#0" expanded="true" />
+>>>>>>> e7e8ba6eebfbaff3155afe05756db0b44d287fdc
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="StorageAPI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/StorageAPI.java">
+=======
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UnlockBroadcastReceiver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/UnlockBroadcastReceiver.java">
+>>>>>>> e7e8ba6eebfbaff3155afe05756db0b44d287fdc
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
@@ -79,10 +105,17 @@
       <file leaf-file-name="FileStorage.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/FileStorage.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.6421053">
               <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+=======
+            <state vertical-scroll-proportion="0.0">
+              <caret line="176" column="51" selection-start-line="176" selection-start-column="51" selection-end-line="176" selection-end-column="51" />
+>>>>>>> e7e8ba6eebfbaff3155afe05756db0b44d287fdc
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#4264#5266#0" expanded="true" />
+                <element signature="e#5265#5266#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1772,12 +1805,12 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/remove_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/OvalSurfaceView.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/popup_background.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/round_background.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/popup_ring.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/chathead.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/UnlockBroadcastReceiver.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/CameraController.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/SelfieCaptureService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/Emotion.java" />
@@ -2218,14 +2251,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17699115">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2269,16 +2294,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/CameraController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="39" selection-start-line="63" selection-start-column="39" selection-end-line="63" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/UnlockBroadcastReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2287,8 +2302,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/CameraController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="176" column="51" selection-start-line="176" selection-start-column="51" selection-end-line="176" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4264#5266#0" expanded="true" />
+            <element signature="e#5265#5266#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/steps/selfie_lapse/SelfieCaptureService.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.0">
           <caret line="71" column="99" selection-start-line="71" selection-start-column="99" selection-end-line="71" selection-end-column="99" />
           <folding>
@@ -2376,6 +2412,16 @@
           <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+=======
+        <state vertical-scroll-proportion="0.22123894">
+          <caret line="74" column="61" selection-start-line="74" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2737#3131#0" expanded="true" />
+            <element signature="e#3130#3131#0" expanded="true" />
+            <element signature="e#5082#5252#0" expanded="true" />
+            <element signature="e#5251#5252#0" expanded="true" />
+>>>>>>> e7e8ba6eebfbaff3155afe05756db0b44d287fdc
           </folding>
         </state>
       </provider>

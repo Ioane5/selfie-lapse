@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -60,9 +61,16 @@ public class CameraController {
         }
     }
 
-    public void takePicture(Camera.PictureCallback callback) {
+    public interface GetURI {
+        void onPhotoSaved(String uri);
+    }
+
+    private GetURI mUriListener;
+
+    public void takePicture(GetURI callback) {
+        mUriListener = callback;
         if (hasCamera && camera != null) {
-            camera.takePicture(null, null, callback);
+            camera.takePicture(null, null, mPicture);
         }
     }
 
@@ -144,34 +152,38 @@ public class CameraController {
     }
 
 
-//    public Camera.PictureCallback mPicture = new Camera.PictureCallback() {
-//        @Override
-//        public void onPictureTaken(byte[] data, Camera camera) {
-//            File pictureFile = getOutputMediaFile();
-//
-//            if (pictureFile == null) {
-//                Log.d("TEST", "Error creating media file, check storage permissions");
-//                return;
-//            }
-//
-//            try {
-//                Log.d("TEST", "File created");
-//                FileOutputStream fos = new FileOutputStream(pictureFile);
-//                fos.write(data);
-//                fos.close();
-//            } catch (FileNotFoundException e) {
-//                Log.d("TEST", "File not found: " + e.getMessage());
-//            } catch (IOException e) {
-//                Log.d("TEST", "Error accessing file: " + e.getMessage());
-//            }
-//        }
-//    };
+    public Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+            File pictureFile = getOutputMediaFile();
+
+            if (pictureFile == null) {
+                Log.d("TEST", "Error creating media file, check storage permissions");
+                return;
+            }
+
+            try {
+                String path = pictureFile.getAbsolutePath();
+                Log.d("TEST", "File created");
+                FileOutputStream fos = new FileOutputStream(pictureFile);
+                fos.write(data);
+                fos.close();
+                mUriListener.onPhotoSaved(pictureFile.getAbsolutePath());
+            } catch (FileNotFoundException e) {
+                Log.d("TEST", "File not found: " + e.getMessage());
+            } catch (IOException e) {
+                Log.d("TEST", "Error accessing file: " + e.getMessage());
+            } finally {
+                mUriListener = null; // avoid cycle
+            }
+        }
+    };
 
     private File getOutputMediaFile() {
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
 
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyCameraApp");
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "timeline");
 
         // This location works best if you want the created images to be shared
         // between applications and persist after your app has been uninstalled.
@@ -188,7 +200,6 @@ public class CameraController {
 
         File mediaFile;
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
-
         return mediaFile;
     }
 
