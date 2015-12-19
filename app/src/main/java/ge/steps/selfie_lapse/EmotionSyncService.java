@@ -24,9 +24,7 @@ public class EmotionSyncService extends IntentService {
             // use emotion helper class.
             // this method is in background.
             FileStorage storage = FileStorage.getSelfieStore(getApplicationContext());
-            for (Selfie s : storage.getAllSelfies()) {
-                // remove bad faces.
-            }
+            EmotionHelper.syncEmotion(storage.getAllSelfies());
         }
     }
 
