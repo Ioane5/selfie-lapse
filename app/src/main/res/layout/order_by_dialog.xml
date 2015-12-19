@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="@string/order_by"
+        android:textSize="24dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioGroup
+
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/Date"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/happiness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/happiness"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/saddness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/saddness"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/surprise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/surprise"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/contempt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/contempt" />
+
+            <RadioButton
+                android:id="@+id/fear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/fear"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/disgust"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/disgust"
+                android:textSize="16sp" />
+
+
+        </RadioGroup>
+    </ScrollView>
+</LinearLayout>

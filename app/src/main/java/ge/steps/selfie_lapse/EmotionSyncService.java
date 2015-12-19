@@ -19,12 +19,14 @@ public class EmotionSyncService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
+
             Log.i(TAG, "now we handle emotion sync");
             // TODO get list of emotion pass and sync them. :)
             // use emotion helper class.
             // this method is in background.
             FileStorage storage = FileStorage.getSelfieStore(getApplicationContext());
-            EmotionHelper.syncEmotion(storage.getAllSelfies());
+            // don't use quota untill it's finished!
+            //EmotionHelper.syncEmotion(storage.getAllSelfies());
         }
     }
 

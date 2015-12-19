@@ -27,9 +27,11 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
-        
         android:id="@+id/fab_create_timelapse"
-        app:fabSize="normal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_movie_filter_white_24dp"
+        app:fabSize="normal" />
 </android.support.design.widget.CoordinatorLayout>

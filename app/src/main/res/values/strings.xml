@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Selflapse</string>
+    <string name="order_by">Order by</string>
+    <string name="button_positive">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="Date">Date</string>
+    <string name="happiness">Happiness</string>
+    <string name="saddness">Saddness</string>
+    <string name="surprise">Surprise</string>
+    <string name="contempt">Contempt</string>
+    <string name="fear">Fear</string>
+    <string name="disgust">Disgust</string>
 </resources>

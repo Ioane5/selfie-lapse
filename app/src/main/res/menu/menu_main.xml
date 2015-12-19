@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_filter"
+        android:id="@+id/action_order"
         android:icon="@drawable/ic_filter_list_white_24dp"
-        android:title="filter"
+        android:title="@string/order_by"
         app:showAsAction="always" />
 
     <item
