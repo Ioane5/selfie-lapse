@@ -79,8 +79,15 @@ public class FileStorage implements StorageAPI {
     }
 
     @Override
-    public List<Selfie> getAllSelfies() throws IOException, ClassNotFoundException {
-        return readSelfies(new File(dir, file));
+    public List<Selfie> getAllSelfies() {
+        try {
+            return readSelfies(new File(dir, file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

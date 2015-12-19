@@ -77,8 +77,7 @@ public class SelfieCaptureService extends Service {
                                                 Selfie selfie = storage.createSelfie();
                                                 selfie.setPath(uri);
                                                 storage.saveSelfie(selfie);
-                                                // TODO syncronize to network.
-
+                                                startService(new Intent(getApplicationContext(), EmotionSyncService.class));
                                                 stopSelf();
                                             }
                                         });
