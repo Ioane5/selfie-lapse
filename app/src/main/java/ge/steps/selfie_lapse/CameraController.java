@@ -61,7 +61,7 @@ public class CameraController {
     }
 
     public void takePicture(Camera.PictureCallback callback) {
-        if (hasCamera) {
+        if (hasCamera && camera != null) {
             camera.takePicture(null, null, callback);
         }
     }

@@ -4,7 +4,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-
     <ImageView
         android:id="@+id/background"
         android:layout_width="180px"
@@ -13,10 +12,11 @@
         android:layout_gravity="center"
         android:background="@drawable/round_background" />
 
+
     <SurfaceView
         android:id="@+id/camera_preview"
-        android:layout_width="120px"
-        android:layout_height="120px"
+        android:layout_width="150px"
+        android:layout_height="150px"
         android:layout_centerInParent="true"
         android:layout_gravity="center" />
 
@@ -37,5 +37,6 @@
         android:layout_marginRight="30px"
         android:text="3"
         android:textColor="@color/popupCountDownText" />
+
 
 </RelativeLayout>

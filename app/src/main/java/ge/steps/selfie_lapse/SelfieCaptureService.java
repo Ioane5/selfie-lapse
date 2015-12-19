@@ -47,49 +47,49 @@ public class SelfieCaptureService extends Service {
     }
 
     private void onStartCapture(SurfaceView preview) {
-        if (cameraController.hasCamera()) {
-            preview.getHolder().addCallback(
-                    new SurfaceHolder.Callback() {
-                        public void surfaceCreated(SurfaceHolder holder) {
-                            // no-op -- wait until surfaceChanged()
-                        }
+        try {
+            if (cameraController.hasCamera()) {
+                preview.getHolder().addCallback(
+                        new SurfaceHolder.Callback() {
+                            public void surfaceCreated(SurfaceHolder holder) {
+                                // no-op -- wait until surfaceChanged()
+                            }
 
-                        public void surfaceChanged(SurfaceHolder holder,
-                                                   int format, int width,
-                                                   int height) {
-                            Log.d(TAG, "holder initiated " + holder);
-                            cameraController.getCameraInstance(holder, width, height);
-                            new CountDownTimer(5000, 1000) {
+                            public void surfaceChanged(SurfaceHolder holder,
+                                                       int format, int width,
+                                                       int height) {
+                                Log.d(TAG, "holder initiated " + holder);
+                                cameraController.getCameraInstance(holder, width, height);
+                                new CountDownTimer(5000, 1000) {
 
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    countDownTextView.setText("" + (millisUntilFinished / 1000));
-                                }
-
-                                @Override
-                                public void onFinish() {
-                                    countDownTextView.setText("cheese!");
-                                    cameraController.takePicture(new Camera.PictureCallback() {
-                                        @Override
-                                        public void onPictureTaken(byte[] data, Camera camera) {
-                                            // TODO save image here. and call database with saved URI
-                                            stopSelf();
-                                        }
-                                    });
-                                    if (!isCanceled) {
-                                        stopSelf();
+                                    @Override
+                                    public void onTick(long millisUntilFinished) {
+                                        countDownTextView.setText("" + (millisUntilFinished / 1000));
                                     }
-                                }
-                            }.start();
 
-                        }
+                                    @Override
+                                    public void onFinish() {
+                                        cameraController.takePicture(new Camera.PictureCallback() {
+                                            @Override
+                                            public void onPictureTaken(byte[] data, Camera camera) {
+                                                // TODO save image here. and call database with saved URI
+                                                stopSelf();
+                                            }
+                                        });
+                                    }
+                                }.start();
 
-                        public void surfaceDestroyed(SurfaceHolder holder) {
-                            // no-op
-                        }
-                    });
-        } else {
-            onCancelCapture();
+                            }
+
+                            public void surfaceDestroyed(SurfaceHolder holder) {
+                                // no-op
+                            }
+                        });
+            } else {
+                onCancelCapture();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -348,12 +348,20 @@ public class SelfieCaptureService extends Service {
             public void onTick(long t) {
                 long step = (500 - t) / 5;
                 mParams.x = (int) (double) bounceValue(step, x);
-                windowManager.updateViewLayout(chatheadView, mParams);
+                try {
+                    windowManager.updateViewLayout(chatheadView, mParams);
+                } catch (IllegalArgumentException e) {
+                    Log.e(TAG, "view not found");
+                }
             }
 
             public void onFinish() {
                 mParams.x = 0;
-                windowManager.updateViewLayout(chatheadView, mParams);
+                try {
+                    windowManager.updateViewLayout(chatheadView, mParams);
+                } catch (IllegalArgumentException e) {
+                    Log.e(TAG, "view not found");
+                }
             }
         }.start();
     }
@@ -366,12 +374,20 @@ public class SelfieCaptureService extends Service {
             public void onTick(long t) {
                 long step = (500 - t) / 5;
                 mParams.x = szWindow.x + (int) (double) bounceValue(step, szWindow.x - x - 2 * chatheadView.getWidth()) - chatheadView.getWidth();
-                windowManager.updateViewLayout(chatheadView, mParams);
+                try {
+                    windowManager.updateViewLayout(chatheadView, mParams);
+                } catch (IllegalArgumentException e) {
+                    Log.e(TAG, "view not found");
+                }
             }
 
             public void onFinish() {
                 mParams.x = szWindow.x - chatheadView.getWidth();
-                windowManager.updateViewLayout(chatheadView, mParams);
+                try {
+                    windowManager.updateViewLayout(chatheadView, mParams);
+                } catch (IllegalArgumentException e) {
+                    Log.e(TAG, "view not found");
+                }
             }
         }.start();
     }
