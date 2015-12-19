@@ -2,6 +2,9 @@ package ge.steps.selfie_lapse;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Environment;
 import android.util.Log;
@@ -70,6 +73,7 @@ public class CameraController {
     public void takePicture(GetURI callback) {
         mUriListener = callback;
         if (hasCamera && camera != null) {
+            camera.getParameters().setRotation(0);
             camera.takePicture(null, null, mPicture);
         }
     }
@@ -101,9 +105,8 @@ public class CameraController {
         Camera.Size optimalSize = getOptimalPreviewSize(sizes, w, h);
 
         camera.getParameters().setPreviewSize(optimalSize.width, optimalSize.height);
-
-
         camera.setDisplayOrientation(90);
+
         try {
             camera.setPreviewDisplay(holder);
         } catch (IOException e) {
@@ -151,6 +154,15 @@ public class CameraController {
         return optimalSize;
     }
 
+
+//    public static byte[] RotateBitmap(byte[] source, float angle) {
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inJustDecodeBounds = true;
+//        Bitmap sourceBitmap = BitmapFactory.decodeByteArray(source, 0, source.length, options);
+//        Matrix matrix = new Matrix();
+//        matrix.postRotate(angle);
+//        return Bitmap.createBitmap(source, 0, 0, sourceBitmap.getWidth(), sourceBitmap.getHeight(), matrix, true).by;
+//    }
 
     public Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override

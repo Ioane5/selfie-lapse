@@ -43,10 +43,11 @@
                 android:textSize="16sp" />
 
             <RadioButton
-                android:id="@+id/saddness"
+                android:id="@+id/sadness"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/saddness"
+                android:padding="4dp"
+                android:text="@string/sadness"
                 android:textSize="16sp" />
 
             <RadioButton
@@ -56,6 +57,21 @@
                 android:padding="4dp"
                 android:text="@string/surprise"
                 android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/anger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/anger"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/neutral"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/neutral" />
 
             <RadioButton
                 android:id="@+id/contempt"

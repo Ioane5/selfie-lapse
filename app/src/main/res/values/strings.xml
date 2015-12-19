@@ -5,9 +5,12 @@
     <string name="cancel">Cancel</string>
     <string name="Date">Date</string>
     <string name="happiness">Happiness</string>
-    <string name="saddness">Saddness</string>
+    <string name="sadness">Sadness</string>
     <string name="surprise">Surprise</string>
     <string name="contempt">Contempt</string>
     <string name="fear">Fear</string>
     <string name="disgust">Disgust</string>
+    <string name="anger">Anger</string>
+    <string name="neutral">Neutral</string>
+    <string name="title_activity_emotion_graph">EmotionGraphActivity</string>
 </resources>

@@ -1,9 +1,11 @@
 package ge.steps.selfie_lapse;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,29 +21,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageGridAdapter mAdapter;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
-    private enum FilterOrder {
+    private ImageGridAdapter mAdapter;
+    private List<Selfie> allSelfies;
+
+    private enum ImageOrder {
         date, anger, contempt, disgust, fear, happiness, neutral, sadness, surprise
     }
 
-    private FilterOrder mFilterOrder;
+    private ImageOrder mImageOrder;
 
-    private static void sortByOrder(List<Selfie> list, final FilterOrder orderType) {
+    private static void sortByOrder(List<Selfie> list, final ImageOrder orderType) {
         Collections.sort(list, new Comparator<Selfie>() {
             @Override
             public int compare(Selfie lhs, Selfie rhs) {
-                if (orderType == FilterOrder.date) {
-                    return (int) (lhs.getDate() - rhs.getDate());
+                if (orderType == ImageOrder.date) {
+                    return (int) (rhs.getDate() - lhs.getDate());
                 }
                 if (lhs.getEmotion() == null) {
                     if (rhs.getEmotion() == null)
@@ -55,21 +61,21 @@ public class MainActivity extends AppCompatActivity {
                 // else compare just types.
                 switch (orderType) {
                     case anger:
-                        return (int) (lhsEmotion.getAnger() - rhsEmotion.getAnger());
+                        return (int) (rhsEmotion.getAnger() - lhsEmotion.getAnger());
                     case contempt:
-                        return (int) (lhsEmotion.getContempt() - rhsEmotion.getContempt());
+                        return (int) (rhsEmotion.getContempt() - lhsEmotion.getContempt());
                     case disgust:
-                        return (int) (lhsEmotion.getDisgust() - rhsEmotion.getDisgust());
+                        return (int) (rhsEmotion.getDisgust() - lhsEmotion.getDisgust());
                     case happiness:
-                        return (int) (lhsEmotion.getHappiness() - rhsEmotion.getHappiness());
+                        return (int) (rhsEmotion.getHappiness() - lhsEmotion.getHappiness());
                     case neutral:
-                        return (int) (lhsEmotion.getNeutral() - rhsEmotion.getNeutral());
+                        return (int) (rhsEmotion.getNeutral() - lhsEmotion.getNeutral());
                     case fear:
-                        return (int) (lhsEmotion.getFear() - rhsEmotion.getFear());
+                        return (int) (rhsEmotion.getFear() - lhsEmotion.getFear());
                     case sadness:
-                        return (int) (lhsEmotion.getSadness() - rhsEmotion.getSadness());
+                        return (int) (rhsEmotion.getSadness() - lhsEmotion.getSadness());
                     case surprise:
-                        return (int) (lhsEmotion.getSurprise() - rhsEmotion.getSurprise());
+                        return (int) (rhsEmotion.getSurprise() - lhsEmotion.getSurprise());
                 }
                 return 0;
             }
@@ -90,8 +96,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(mAdapter);
         FileStorage storage = FileStorage.getSelfieStore(getApplicationContext());
-        mFilterOrder = FilterOrder.date; // default order type
-        mAdapter.setData(storage.getAllSelfies());
+        allSelfies = storage.getAllSelfies();
+        mImageOrder = ImageOrder.date; // default order type
+        sortByOrder(allSelfies, mImageOrder);
+        mAdapter.setData(allSelfies);
+        
+        findViewById(R.id.fab_create_timelapse).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), EmotionGraphActivity.class));
+            }
+        });
     }
 
     class ImageGridAdapter extends RecyclerView.Adapter<ImageGridAdapter.ImageVH> {
@@ -174,15 +189,71 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static int orderTypeToRadioButtonId(ImageOrder type) {
+        switch (type) {
+            case date:
+                return R.id.date;
+            case anger:
+                return R.id.anger;
+            case contempt:
+                return R.id.contempt;
+            case disgust:
+                return R.id.disgust;
+            case happiness:
+                return R.id.happiness;
+            case neutral:
+                return R.id.neutral;
+            case fear:
+                return R.id.fear;
+            case sadness:
+                return R.id.sadness;
+            case surprise:
+                return R.id.surprise;
+        }
+        Log.e(TAG, "some shit happened");
+        return R.id.date;
+    }
+
+    public static ImageOrder idToOrderType(int id) {
+        switch (id) {
+            case R.id.date:
+                return ImageOrder.date;
+            case R.id.anger:
+                return ImageOrder.anger;
+            case R.id.contempt:
+                return ImageOrder.contempt;
+            case R.id.disgust:
+                return ImageOrder.disgust;
+            case R.id.happiness:
+                return ImageOrder.happiness;
+            case R.id.neutral:
+                return ImageOrder.neutral;
+            case R.id.fear:
+                return ImageOrder.fear;
+            case R.id.sadness:
+                return ImageOrder.sadness;
+            case R.id.surprise:
+                return ImageOrder.surprise;
+            default:
+                Log.e(TAG, "some shit happened 2");
+                return ImageOrder.date;
+        }
+    }
+
     public void showOrderDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View orderByDialog = LayoutInflater.from(this).inflate(R.layout.order_by_dialog, null, false);
         builder.setView(orderByDialog);
+        final RadioGroup group = (RadioGroup) orderByDialog.findViewById(R.id.radio_group);
+        int checkedId = orderTypeToRadioButtonId(mImageOrder);
+        group.check(checkedId);
 
         builder.setPositiveButton(R.string.button_positive, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                mImageOrder = idToOrderType(group.getCheckedRadioButtonId());
+                sortByOrder(mAdapter.mData, mImageOrder);
+                mAdapter.notifyDataSetChanged();
             }
         });
         builder.setNegativeButton(getString(R.string.cancel), null);
