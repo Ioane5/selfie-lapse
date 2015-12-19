@@ -1,5 +1,7 @@
 package ge.steps.selfie_lapse;
 
+import android.content.Context;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,7 +15,12 @@ import java.util.List;
 public class FileStorage implements StorageAPI {
     private String dir;
     private String file;
-    public FileStorage(String dir, String file){
+
+    public static FileStorage getSelfieStore(Context context) {
+        return new FileStorage(context.getFilesDir().getAbsolutePath(), "selfies");
+    }
+
+    public FileStorage(String dir, String file) {
         this.dir = dir;
         this.file = file;
     }
@@ -26,15 +33,18 @@ public class FileStorage implements StorageAPI {
     }
 
     @Override
-    public void saveSelfie(Selfie selfie) throws IOException, ClassNotFoundException {
-        File f = new File(dir, file);
-        ArrayList<Selfie> selfies = new ArrayList<>();
+    public void saveSelfie(Selfie selfie) {
+        try {
+            File f = new File(dir, file);
+            ArrayList<Selfie> selfies = new ArrayList<>();
 
-        selfies.addAll(readSelfies(f));
-        selfies.add(selfie);
+            selfies.addAll(readSelfies(f));
+            selfies.add(selfie);
 
-        saveFile(f, selfies);
-
+            saveFile(f, selfies);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -42,8 +52,8 @@ public class FileStorage implements StorageAPI {
         File f = new File(dir, file);
         ArrayList<Selfie> selfies = readSelfies(f);
 
-        for(Selfie s: selfies){
-            if(s.getPath().equals(path)){
+        for (Selfie s : selfies) {
+            if (s.getPath().equals(path)) {
                 selfies.remove(s);
                 break;
             }
@@ -57,8 +67,8 @@ public class FileStorage implements StorageAPI {
         File f = new File(dir, file);
         ArrayList<Selfie> selfies = readSelfies(f);
 
-        for(Selfie s: selfies){
-            if(s.getPath().equals(selfie.getPath())){
+        for (Selfie s : selfies) {
+            if (s.getPath().equals(selfie.getPath())) {
                 selfies.remove(s);
                 selfies.add(selfie);
                 break;

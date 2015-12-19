@@ -73,6 +73,12 @@ public class SelfieCaptureService extends Service {
                                             @Override
                                             public void onPhotoSaved(String uri) {
                                                 Log.d(TAG, "path :  " + uri);
+                                                FileStorage storage = FileStorage.getSelfieStore(getApplicationContext());
+                                                Selfie selfie = storage.createSelfie();
+                                                selfie.setPath(uri);
+                                                storage.saveSelfie(selfie);
+                                                // TODO syncronize to network.
+
                                                 stopSelf();
                                             }
                                         });
