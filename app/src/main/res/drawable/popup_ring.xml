@@ -2,8 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <stroke
-        android:width="20px"
-        android:color="@color/popupBackground" />
+        android:width="10px"
+        android:color="@color/colorPrimaryDark" />
 
     <corners android:radius="40px"/>
 </shape>
