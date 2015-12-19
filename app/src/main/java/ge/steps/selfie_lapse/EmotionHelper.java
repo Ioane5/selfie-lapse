@@ -2,9 +2,15 @@ package ge.steps.selfie_lapse;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -56,9 +62,23 @@ public class EmotionHelper {
                     output.write(buffer, 0, length);
                 }
                 output.flush();
+                if(connection.getResponseCode() == 200){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                    }
+                    br.close();
+                    updateSelfie(sb.toString(), s);
+                }
+
                 return connection.getResponseCode();
             } catch (Exception e) {
                 e.printStackTrace();
+            }finally {
+                file.close();
+                output.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +86,19 @@ public class EmotionHelper {
         return -1;
     }
 
-    public static void sortByEmotion(List<Selfie> selfies, EmotionType type) {
-
+    private static void updateSelfie(String json, Selfie s) throws JSONException, NoFaceDetectedException {
+        JSONArray j = new JSONArray(json);
+        if (j.length() == 0) throw new NoFaceDetectedException();
+        else {
+            Emotion emotion = new Emotion();
+            emotion.setAnger(j.getJSONObject(0).getDouble("anger"));
+            emotion.setContempt(j.getJSONObject(0).getDouble("contempt"));
+            emotion.setDisgust(j.getJSONObject(0).getDouble("disgust"));
+            emotion.setFear(j.getJSONObject(0).getDouble("fear"));
+            emotion.setHappiness(j.getJSONObject(0).getDouble("happiness"));
+            emotion.setNeutral(j.getJSONObject(0).getDouble("neutral"));
+            emotion.setSadness(j.getJSONObject(0).getDouble("sadness"));
+            emotion.setSurprise(j.getJSONObject(0).getDouble("surprise"));
+        }
     }
 }

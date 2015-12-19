@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -48,7 +47,7 @@ public class FileStorage implements StorageAPI {
     }
 
     @Override
-    public void deleteSelfie(String path) throws IOException, ClassNotFoundException {
+    public void deleteSelfie(String path){
         File f = new File(dir, file);
         ArrayList<Selfie> selfies = readSelfies(f);
 
@@ -58,12 +57,15 @@ public class FileStorage implements StorageAPI {
                 break;
             }
         }
-
-        saveFile(f, selfies);
+        try {
+            saveFile(f, selfies);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void updateSelfie(Selfie selfie) throws IOException, ClassNotFoundException {
+    public void updateSelfie(Selfie selfie){
         File f = new File(dir, file);
         ArrayList<Selfie> selfies = readSelfies(f);
 
@@ -74,32 +76,41 @@ public class FileStorage implements StorageAPI {
                 break;
             }
         }
-
-        saveFile(f, selfies);
+        try {
+            saveFile(f, selfies);
+        }catch(Exception e){
+                e.printStackTrace();
+        }
     }
 
     @Override
     public List<Selfie> getAllSelfies() {
+        return readSelfies(new File(dir, file));
+    }
+
+    @Override
+    public void saveAll(List<Selfie> selfies) {
         try {
-            return readSelfies(new File(dir, file));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+            saveFile(new File(dir, file), selfies);
+        }catch(Exception e){
             e.printStackTrace();
         }
-        return null;
     }
 
 
-    private ArrayList<Selfie> readSelfies(File f) throws IOException, ClassNotFoundException {
-        if (f.exists()) {
-            ObjectInputStream fi = new ObjectInputStream(new FileInputStream(f));
-            return (ArrayList<Selfie>) fi.readObject();
+    private ArrayList<Selfie> readSelfies(File f){
+        try {
+            if (f.exists()) {
+                ObjectInputStream fi = new ObjectInputStream(new FileInputStream(f));
+                return (ArrayList<Selfie>) fi.readObject();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
         return new ArrayList<>();
     }
 
-    private void saveFile(File f, ArrayList<Selfie> selfies) throws IOException {
+    private void saveFile(File f, List<Selfie> selfies) throws IOException {
         FileOutputStream fo = new FileOutputStream(f);
         new ObjectOutputStream(fo).writeObject(selfies);
     }
