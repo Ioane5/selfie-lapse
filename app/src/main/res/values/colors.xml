@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="removeBackgroundStartColor">#9b000000</color>
     <color name="removeBackgroundCenterColor">#4a000000</color>
+    <color name="popupRing">#303F9F</color>
+    <color name="popupBackground">#0b1138</color>
+    <color name="popupCountDownText">#f1e43c</color>
+
 </resources>

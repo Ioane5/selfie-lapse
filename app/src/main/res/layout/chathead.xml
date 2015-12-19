@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chathead_relativelayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="180px"
+        android:layout_height="180px"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@drawable/round_background" />
+
+    <SurfaceView
+        android:id="@+id/camera_preview"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center" />
+
+    <ImageView
+        android:layout_width="180px"
+        android:layout_height="180px"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@drawable/popup_ring" />
+
+    <TextSwitcher
+        android:id="@+id/countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/background"
+        android:layout_alignRight="@+id/background"
+        android:layout_marginBottom="30px"
+        android:layout_marginRight="30px"
+        android:text="3"
+        android:textColor="@color/popupCountDownText" />
+
+</RelativeLayout>

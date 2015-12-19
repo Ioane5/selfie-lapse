@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/remove_relativelayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="200dp"
     android:background="@drawable/remove_view_background"
-    android:orientation="vertical">
+    android:gravity="center">
 
-    <android.support.v7.widget.AppCompatImageButton
-        android:layout_margin="20dp"
-        android:id="@+id/remove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/ic_not_interested_black_48dp" />
+    <ImageButton
+        android:id="@+id/remove_img"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@null"
+        android:src="@drawable/ic_remove" />
+
 </RelativeLayout>
