@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by Xatoo on 19.12.2015.
  */
 public class Emotion implements Serializable {
+
     private double anger;
     private double contempt;
     private double disgust;
@@ -77,5 +78,19 @@ public class Emotion implements Serializable {
 
     public void setSurprise(double surprise) {
         this.surprise = surprise;
+    }
+
+    @Override
+    public String toString() {
+        return "Emotion{" +
+                "anger=" + anger +
+                ", contempt=" + contempt +
+                ", disgust=" + disgust +
+                ", fear=" + fear +
+                ", happiness=" + happiness +
+                ", neutral=" + neutral +
+                ", sadness=" + sadness +
+                ", surprise=" + surprise +
+                '}';
     }
 }
