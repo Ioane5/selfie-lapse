@@ -45,7 +45,7 @@ public class TimeLapseActivity extends AppCompatActivity {
                 if (isPaused)
                     cancel();
                 else {
-                    int pos = (int) (selfies.size() - millisUntilFinished / duration) - 1;
+                    int pos = (int) (selfies.size() - millisUntilFinished / duration);
                     Selfie selfie = selfies.get(pos);
                     selfie.getPath();
                     final File image = new File(selfie.getPath());
