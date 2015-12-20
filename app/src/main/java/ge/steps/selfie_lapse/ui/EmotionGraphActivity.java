@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,16 +44,18 @@ import ge.steps.selfie_lapse.R;
 import ge.steps.selfie_lapse.Selfie;
 import ge.steps.selfie_lapse.StorageAPI;
 
-public class EmotionGraphActivity extends FragmentActivity {
+public class EmotionGraphActivity extends AppCompatActivity {
 
     private LineChart mChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_emotion_graph);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mChart = (LineChart) findViewById(R.id.chart1);
         mChart.setDrawGridBackground(false);
@@ -70,7 +74,7 @@ public class EmotionGraphActivity extends FragmentActivity {
         leftAxis.setDrawLimitLinesBehindData(true);
 
         mChart.getAxisRight().setEnabled(false);
-        mChart.setBackgroundColor(Color.parseColor("#2196F3"));
+        mChart.setBackgroundColor(getR);
         //mChart.getViewPortHandler().setMaximumScaleY(2f);
         //mChart.getViewPortHandler().setMaximumScaleX(2f);
 

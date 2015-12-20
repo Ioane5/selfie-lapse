@@ -31,11 +31,11 @@ public class TimeLapseActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Graph");
 
         selfies = (ArrayList<Selfie>) getIntent().getSerializableExtra(ARG_IMAGES);
         imageView = (ImageView) findViewById(R.id.image);
     }
-
 
     public void showLapse() {
         new CountDownTimer(selfies.size() * duration, duration) {
