@@ -1,4 +1,4 @@
-package ge.steps.selfie_lapse;
+package ge.steps.selfie_lapse.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +27,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import ge.steps.selfie_lapse.Emotion;
+import ge.steps.selfie_lapse.FileStorage;
+import ge.steps.selfie_lapse.R;
+import ge.steps.selfie_lapse.Selfie;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.fab_create_timelapse).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
+                Intent i = new Intent(getBaseContext(), TimeLapseActivity.class);
+                i.putExtra(TimeLapseActivity.ARG_IMAGES, new ArrayList<>(allSelfies));
+                startActivity(i);
             }
         });
     }

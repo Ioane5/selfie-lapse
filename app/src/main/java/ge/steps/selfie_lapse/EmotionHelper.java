@@ -31,11 +31,15 @@ public class EmotionHelper {
      * @param selfies
      */
     public static void syncEmotion(List<Selfie> selfies) {
-        for (Selfie s : selfies) {
+        for (int i = 0; i < selfies.size(); i++) {
+            Selfie s = selfies.get(i);
             int status = sync(s);
             switch (status) {
                 case 200:
                     break;
+                case 404: // no face detected
+                    selfies.remove(i);
+                    i--;
                 default:
                     Log.d(TAG, "" + status);
             }
@@ -52,11 +56,7 @@ public class EmotionHelper {
             connection.setRequestProperty("content-type", "application/octet-stream");
             connection.setRequestProperty("Ocp-Apim-Subscription-Key", "119957c1637b495ca5f671096fc6c55b");
 
-            Log.d("bla", "bla" + s.getPath());
             File f = new File(s.getPath());
-
-            Log.d("bla", "bla" + f.length());
-
             OutputStream output = connection.getOutputStream();
             InputStream file = new FileInputStream(new File(s.getPath()));
             System.out.println("Size: " + file.available());
@@ -66,9 +66,6 @@ public class EmotionHelper {
                 int length;
                 while ((length = file.read(buffer)) > 0) {
                     sum += length;
-                    System.out.println("Len: " + length);
-                    System.out.println("Sum: " + sum);
-
                     output.write(buffer, 0, length);
                 }
                 output.flush();
@@ -80,9 +77,13 @@ public class EmotionHelper {
                         sb.append(line);
                     }
                     br.close();
-                    updateSelfie(sb.toString(), s);
+                    try {
+                        updateSelfie(sb.toString(), s);
+                    } catch (NoFaceDetectedException e) {
+                        e.printStackTrace();
+                        return 404;
+                    }
                 }
-
                 return connection.getResponseCode();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -92,6 +93,7 @@ public class EmotionHelper {
             }
         } catch (Exception e) {
             e.printStackTrace();
+
         }
         return -1;
     }

@@ -1,4 +1,4 @@
-package ge.steps.selfie_lapse;
+package ge.steps.selfie_lapse.ui;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -37,7 +37,12 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 
-public class EmotionGraphActivity extends FragmentActivity{
+import ge.steps.selfie_lapse.FileStorage;
+import ge.steps.selfie_lapse.R;
+import ge.steps.selfie_lapse.Selfie;
+import ge.steps.selfie_lapse.StorageAPI;
+
+public class EmotionGraphActivity extends FragmentActivity {
 
     private LineChart mChart;
 
@@ -84,7 +89,7 @@ public class EmotionGraphActivity extends FragmentActivity{
 
         // modify the legend ...
 //         l.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-         l.setForm(LegendForm.LINE);
+        l.setForm(LegendForm.LINE);
 
         // // dont forget to refresh the drawing
         mChart.invalidate();
@@ -99,6 +104,12 @@ public class EmotionGraphActivity extends FragmentActivity{
     private void setData() {
         StorageAPI storage = FileStorage.getSelfieStore(getApplicationContext());
         ArrayList<Selfie> selfies = (ArrayList<Selfie>) storage.getAllSelfies();
+        for (int i = 0; i < selfies.size(); i++) {
+            if (selfies.get(i).getEmotion() == null) {
+                selfies.remove(i);
+                i--;
+            }
+        }
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < selfies.size(); i++)
             xVals.add((i) + "");
@@ -108,7 +119,7 @@ public class EmotionGraphActivity extends FragmentActivity{
 
         for (int i = 0; i < selfies.size(); i++) {
 
-            yVals.add(new Entry((float)selfies.get(i).getEmotion().getHappiness(), i));
+            yVals.add(new Entry((float) selfies.get(i).getEmotion().getHappiness(), i));
         }
 
         // create a dataset and give it a type
@@ -124,7 +135,7 @@ public class EmotionGraphActivity extends FragmentActivity{
         mChart.setData(data);
     }
 
-    private LineDataSet getSet(ArrayList<Entry> data, String name, int color){
+    private LineDataSet getSet(ArrayList<Entry> data, String name, int color) {
         LineDataSet set = new LineDataSet(data, name);
         set.setColor(color);
         set.setCircleColor(color);

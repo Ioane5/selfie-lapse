@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.hardware.Camera;
 import android.os.CountDownTimer;
 import android.os.IBinder;
@@ -55,7 +56,7 @@ public class SelfieCaptureService extends Service {
                                 // no-op -- wait until surfaceChanged()
                             }
 
-                            public void surfaceChanged(SurfaceHolder holder,
+                            public void surfaceChanged(final SurfaceHolder holder,
                                                        int format, int width,
                                                        int height) {
                                 Log.d(TAG, "holder initiated " + holder);
@@ -69,18 +70,26 @@ public class SelfieCaptureService extends Service {
 
                                     @Override
                                     public void onFinish() {
-                                        cameraController.takePicture(new CameraController.GetURI() {
+                                        chatheadView.animate().alpha(0);
+
+                                        new Thread(new Runnable() {
                                             @Override
-                                            public void onPhotoSaved(String uri) {
-                                                Log.d(TAG, "path :  " + uri);
-                                                FileStorage storage = FileStorage.getSelfieStore(getApplicationContext());
-                                                Selfie selfie = storage.createSelfie();
-                                                selfie.setPath(uri);
-                                                storage.saveSelfie(selfie);
-                                                startService(new Intent(getApplicationContext(), EmotionSyncService.class));
-                                                stopSelf();
+                                            public void run() {
+                                                cameraController.takePicture(new CameraController.GetURI() {
+                                                    @Override
+                                                    public void onPhotoSaved(String uri) {
+                                                        Log.d(TAG, "path :  " + uri);
+                                                        FileStorage storage = FileStorage.getSelfieStore(getApplicationContext());
+                                                        Selfie selfie = storage.createSelfie();
+                                                        selfie.setPath(uri);
+                                                        storage.saveSelfie(selfie);
+                                                        startService(new Intent(getApplicationContext(), EmotionSyncService.class));
+                                                        stopSelf();
+                                                    }
+                                                });
                                             }
-                                        });
+                                        }).start();
+
                                     }
                                 }.start();
 
@@ -134,7 +143,10 @@ public class SelfieCaptureService extends Service {
         countDownTextView.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
-                return new TextView(getBaseContext());
+                TextView tv = new TextView(getBaseContext());
+                tv.setTextColor(getBaseContext().getResources().getColor(R.color.colorAccent));
+                tv.setTypeface(Typeface.DEFAULT_BOLD);
+                return tv;
             }
         });
         countDownTextView.setInAnimation(this, android.R.anim.fade_in);
