@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.media.ExifInterface;
 import android.os.Environment;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -121,7 +122,7 @@ public class CameraController {
     }
 
     private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
-        final double ASPECT_TOLERANCE = 0.05;
+        final double ASPECT_TOLERANCE = 0.005;
         double targetRatio = (double) w / h;
 
         if (sizes == null) return null;
@@ -164,10 +165,20 @@ public class CameraController {
 //        return Bitmap.createBitmap(source, 0, 0, sourceBitmap.getWidth(), sourceBitmap.getHeight(), matrix, true).by;
 //    }
 
+    public static Bitmap rotateBitmap(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+    }
+
+
     public Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             File pictureFile = getOutputMediaFile();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            bitmap = rotateBitmap(bitmap, -90);
+
 
             if (pictureFile == null) {
                 Log.d("TEST", "Error creating media file, check storage permissions");
@@ -175,16 +186,11 @@ public class CameraController {
             }
 
             try {
-                String path = pictureFile.getAbsolutePath();
-                Log.d("TEST", "File created");
-                FileOutputStream fos = new FileOutputStream(pictureFile);
-                fos.write(data);
-                fos.close();
-                mUriListener.onPhotoSaved(pictureFile.getAbsolutePath());
-            } catch (FileNotFoundException e) {
+                FileOutputStream out = new FileOutputStream(pictureFile);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                mUriListener.onPhotoSaved(pictureFile.getPath());
+            } catch (Exception e) {
                 Log.d("TEST", "File not found: " + e.getMessage());
-            } catch (IOException e) {
-                Log.d("TEST", "Error accessing file: " + e.getMessage());
             } finally {
                 mUriListener = null; // avoid cycle
             }

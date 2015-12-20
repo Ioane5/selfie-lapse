@@ -62,7 +62,7 @@ public class EmotionHelper {
                     output.write(buffer, 0, length);
                 }
                 output.flush();
-                if(connection.getResponseCode() == 200){
+                if (connection.getResponseCode() == 200) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     StringBuilder sb = new StringBuilder();
                     String line;
@@ -76,7 +76,7 @@ public class EmotionHelper {
                 return connection.getResponseCode();
             } catch (Exception e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 file.close();
                 output.close();
             }
@@ -87,18 +87,21 @@ public class EmotionHelper {
     }
 
     private static void updateSelfie(String json, Selfie s) throws JSONException, NoFaceDetectedException {
+        Log.d(TAG, "JSON " + json);
         JSONArray j = new JSONArray(json);
         if (j.length() == 0) throw new NoFaceDetectedException();
         else {
+            JSONObject scores = j.getJSONObject(0).getJSONObject("scores");
             Emotion emotion = new Emotion();
-            emotion.setAnger(j.getJSONObject(0).getDouble("anger"));
-            emotion.setContempt(j.getJSONObject(0).getDouble("contempt"));
-            emotion.setDisgust(j.getJSONObject(0).getDouble("disgust"));
-            emotion.setFear(j.getJSONObject(0).getDouble("fear"));
-            emotion.setHappiness(j.getJSONObject(0).getDouble("happiness"));
-            emotion.setNeutral(j.getJSONObject(0).getDouble("neutral"));
-            emotion.setSadness(j.getJSONObject(0).getDouble("sadness"));
-            emotion.setSurprise(j.getJSONObject(0).getDouble("surprise"));
+            emotion.setAnger(scores.getDouble("anger"));
+            emotion.setContempt(scores.getDouble("contempt"));
+            emotion.setDisgust(scores.getDouble("disgust"));
+            emotion.setFear(scores.getDouble("fear"));
+            emotion.setHappiness(scores.getDouble("happiness"));
+            emotion.setNeutral(scores.getDouble("neutral"));
+            emotion.setSadness(scores.getDouble("sadness"));
+            emotion.setSurprise(scores.getDouble("surprise"));
+            s.setEmotion(emotion);
         }
     }
 }
