@@ -34,11 +34,14 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.txusballesteros.SnakeView;
 //import com.xxmassdeveloper.mpchartexample.custom.MyMarkerView;
 //import com.xxmassdeveloper.mpchartexample.notimportant.DemoBase;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import ge.steps.selfie_lapse.Emotion;
 import ge.steps.selfie_lapse.FileStorage;
 import ge.steps.selfie_lapse.R;
 import ge.steps.selfie_lapse.Selfie;
@@ -56,56 +59,33 @@ public class EmotionGraphActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Graphs");
 
-        mChart = (LineChart) findViewById(R.id.chart1);
-        mChart.setDrawGridBackground(false);
+        ArrayList<Selfie> selfies = getValidSelfes();
 
-        // enable touch gestures
-        mChart.setTouchEnabled(false);
+        SnakeView anger = (SnakeView) findViewById(R.id.snake_anger);
+        SnakeView contempt = (SnakeView) findViewById(R.id.snake_contempt);
+        SnakeView disgust = (SnakeView) findViewById(R.id.snake_disgust);
+        SnakeView fear = (SnakeView) findViewById(R.id.snake_fear);
+        SnakeView happiness = (SnakeView) findViewById(R.id.snake_happiness);
+        SnakeView neutral = (SnakeView) findViewById(R.id.snake_neutral);
+        SnakeView sadness = (SnakeView) findViewById(R.id.snake_sadness);
+        SnakeView surprise = (SnakeView) findViewById(R.id.snake_surprise);
+        for (Selfie s : selfies) {
+            Emotion emotion = s.getEmotion();
+            anger.addValue((float) emotion.getAnger());
+            contempt.addValue((float) emotion.getContempt());
+            disgust.addValue((float) emotion.getDisgust());
+            fear.addValue((float) emotion.getFear());
+            happiness.addValue((float) emotion.getHappiness());
+            neutral.addValue((float) emotion.getNeutral());
+            sadness.addValue((float) emotion.getSadness());
+            surprise.addValue((float) emotion.getSurprise());
+        }
 
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setAxisMaxValue(1f);
-        leftAxis.setAxisMinValue(0f);
-        leftAxis.setStartAtZero(false);
-        //leftAxis.setYOffset(20f);
-        leftAxis.enableGridDashedLine(10f, 10f, 0f);
-
-        // limit lines are drawn behind data (and not on top)
-        leftAxis.setDrawLimitLinesBehindData(true);
-
-        mChart.getAxisRight().setEnabled(false);
-        mChart.setBackgroundColor(getR);
-        //mChart.getViewPortHandler().setMaximumScaleY(2f);
-        //mChart.getViewPortHandler().setMaximumScaleX(2f);
-
-        // add data
-        setData();
-
-//        mChart.setVisibleXRange(20);
-//        mChart.setVisibleYRange(20f, AxisDependency.LEFT);
-//        mChart.centerViewTo(20, 50, AxisDependency.LEFT);
-
-        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
-//        mChart.invalidate();
-
-        // get the legend (only possible after setting data)
-        Legend l = mChart.getLegend();
-
-        // modify the legend ...
-//         l.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-        l.setForm(LegendForm.LINE);
-
-        // // dont forget to refresh the drawing
-        mChart.invalidate();
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-    }
-
-
-    private void setData() {
+    private ArrayList<Selfie> getValidSelfes() {
         StorageAPI storage = FileStorage.getSelfieStore(getApplicationContext());
         ArrayList<Selfie> selfies = (ArrayList<Selfie>) storage.getAllSelfies();
         for (int i = 0; i < selfies.size(); i++) {
@@ -114,6 +94,11 @@ public class EmotionGraphActivity extends AppCompatActivity {
                 i--;
             }
         }
+        return selfies;
+    }
+
+    private void setData() {
+        ArrayList<Selfie> selfies = getValidSelfes();
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < selfies.size(); i++)
             xVals.add((i) + "");

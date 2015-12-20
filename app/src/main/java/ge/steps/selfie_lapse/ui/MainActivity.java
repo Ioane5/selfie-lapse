@@ -80,6 +80,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                FileStorage storage = FileStorage.getSelfieStore(getApplicationContext());
+                allSelfies = storage.getAllSelfies();
+                sortByOrder(allSelfies, mImageOrder);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                mAdapter.setData(allSelfies);
+            }
+        }.execute();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);

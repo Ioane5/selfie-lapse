@@ -31,7 +31,7 @@ public class TimeLapseActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Graph");
+        setTitle("TimeLapse");
 
         selfies = (ArrayList<Selfie>) getIntent().getSerializableExtra(ARG_IMAGES);
         imageView = (ImageView) findViewById(R.id.image);
