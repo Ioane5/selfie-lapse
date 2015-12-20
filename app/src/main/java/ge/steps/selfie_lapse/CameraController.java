@@ -73,7 +73,7 @@ public class CameraController {
     public void takePicture(GetURI callback) {
         mUriListener = callback;
         if (hasCamera && camera != null) {
-            camera.getParameters().setRotation(0);
+            camera.getParameters().setRotation(90);
             camera.takePicture(null, null, mPicture);
         }
     }

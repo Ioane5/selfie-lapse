@@ -1,10 +1,10 @@
 package ge.steps.selfie_lapse;
 
+import android.os.Debug;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -51,14 +51,23 @@ public class EmotionHelper {
             connection.setRequestProperty("content-type", "application/octet-stream");
             connection.setRequestProperty("Ocp-Apim-Subscription-Key", "119957c1637b495ca5f671096fc6c55b");
 
+            Log.d("bla", "bla" + s.getPath());
+            File f = new File(s.getPath());
+
+            Log.d("bla", "bla" + f.length());
 
             OutputStream output = connection.getOutputStream();
             InputStream file = new FileInputStream(new File(s.getPath()));
             System.out.println("Size: " + file.available());
             try {
                 byte[] buffer = new byte[4096];
+                int sum = 0;
                 int length;
                 while ((length = file.read(buffer)) > 0) {
+                    sum += length;
+                    System.out.println("Len: " + length);
+                    System.out.println("Sum: " + sum);
+
                     output.write(buffer, 0, length);
                 }
                 output.flush();
@@ -87,6 +96,7 @@ public class EmotionHelper {
     }
 
     private static void updateSelfie(String json, Selfie s) throws JSONException, NoFaceDetectedException {
+        System.out.println("json: " + json);
         JSONArray j = new JSONArray(json);
         if (j.length() == 0) throw new NoFaceDetectedException();
         else {
